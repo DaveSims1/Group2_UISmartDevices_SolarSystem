@@ -3,7 +3,9 @@ import __main__
 
 def make_planet(colour, orbit, size, speed):
     no_stroke()
-    fill(colour)
+    #using rgb
+    r, g, b = colour
+    fill(r, g, b)
     # 2D transformation
     push_matrix()
     # Centre the orbit on the centre of the model
