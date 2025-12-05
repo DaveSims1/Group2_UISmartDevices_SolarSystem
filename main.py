@@ -2,50 +2,47 @@
 from p5 import *
 from make_planet import make_planet
 
-#Planets List - David Sims
+# -----------------------------------------
+# PLANETS LIST
+# Format: (colour(R,G,B), orbit_size, planet_size, speed)
+# -----------------------------------------
+
 planets = [
-    ((0,0,255), 340, 22, 0.4), #Neptune
-    ((200,200,200),400,12,0.25) #Pluto
+    # Planets List - David Sims
+    ((0, 0, 255), 340, 22, 0.4),      # Neptune
+    ((200, 200, 200), 400, 12, 0.25), # Pluto
+
+    # Planets List - Done by Farzana Happy, ID# 301340971
+    ((0, 100, 255), 200, 20, 1.0),    # Earth
+    ((210, 180, 140), 260, 30, 0.7),  # Saturn
+    ((80, 180, 255), 300, 24, 0.5),   # Uranus
 ]
 
 def draw_sun():
     fill(255, 255, 0)  # Yellow
-    ellipse(width / 2 , height / 2, 100, 100)
+    ellipse(width / 2, height / 2, 100, 100)
 
-
-# draw_orbits function
 def draw_orbit():
     no_fill()
-    stroke(100) #This can show a greyish orbit - DS
-    for _, orbit, _, in planets:
+    stroke(100)
+    for _, orbit, _, _ in planets:
         ellipse(width / 2, height / 2, orbit, orbit)
 
-
-# draw_planets function
-
 def draw_planets():
-    for colour, orbit, size, speed, in planets:
-        make_planet(colour, orbit, size, speed) #creation of planet -ds
+    for colour, orbit, size, speed in planets:
+        make_planet(colour, orbit, size, speed)
 
-# load_planets function
-  
 def setup():
-    # Put code to run once here
     size(400, 400)
 
-  
 def draw():
-    # Put code to run every frame here
     background(0)
     no_stroke()
     draw_sun()
-    draw_planets() #draw planets -ds
-
+    # draw_orbit()   # Optional
+    draw_planets()
 
 def mouse_pressed():
-    # Put code to run when the mouse is pressed here
-    pixel_colour = Color(get(mouse_x, mouse_y)).hex  # Here the RGB value is converted to Hex so it can be used in a string comparison later
+    pixel_colour = Color(get(mouse_x, mouse_y)).hex
 
-  
 run(frame_rate=60)
-
