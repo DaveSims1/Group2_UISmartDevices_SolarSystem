@@ -16,6 +16,13 @@ planets = [
     ((0, 100, 255), 200, 20, 1.0),    # Earth
     ((210, 180, 140), 260, 30, 0.7),  # Saturn
     ((80, 180, 255), 300, 24, 0.5),   # Uranus
+
+    # Planets List - Done by Maryam Khan, ID# 301371688
+    ((255, 200, 50), 160, 16, 1.2),   # Venus
+    ((255, 80, 50), 240, 14, 0.8),    # Mars
+    ((180, 180, 180), 120, 10, 1.6),  # Mercury
+    ((230, 150, 80), 280, 40, 0.6),   # Jupiter 
+
 ]
 
 def draw_sun():
@@ -39,7 +46,7 @@ def draw():
     background(0)
     no_stroke()
     draw_sun()
-    # draw_orbit()   # Optional
+    draw_orbit()   # Optional
     draw_planets()
 
 def mouse_pressed():
