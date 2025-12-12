@@ -21,7 +21,10 @@ planets = [
     ((255, 200, 50), 160, 16, 1.2),   # Venus
     ((255, 80, 50), 240, 14, 0.8),    # Mars
     ((180, 180, 180), 120, 10, 1.6),  # Mercury
-    ((230, 150, 80), 280, 40, 0.6),   # Jupiter 
+    ((230, 150, 80), 280, 40, 0.6),   # Jupiter
+
+    # Moon List - Isaiah Newman
+    ((180, 180, 180), 40, 6, 2.0)   # Luna
 
 ]
 
@@ -32,12 +35,36 @@ def draw_sun():
 def draw_orbit():
     no_fill()
     stroke(100)
-    for _, orbit, _, _ in planets:
+    for i, (_, orbit, _, _) in enumerate(planets):
+        if i == len(planets) - 1:  # skip Moon
+            continue
         ellipse(width / 2, height / 2, orbit, orbit)
 
 def draw_planets():
-    for colour, orbit, size, speed in planets:
-        make_planet(colour, orbit, size, speed)
+    earth_x = earth_y = None
+
+    for i, (colour, orbit, size, speed) in enumerate(planets):
+        # Only skip drawing the Moon for Sun-centered orbit
+        if colour == (180, 180, 180) and i == len(planets) - 1:
+            # This is the Moon; skip Sun orbit
+            pass
+        else:
+            make_planet(colour, orbit, size, speed)
+
+        # Store Earth's position for the Moon
+        if colour == (0, 100, 255):  # Earth
+            angle = radians((frame_count * speed) % 360)
+            earth_x = width/2 + (orbit/2) * cos(angle)
+            earth_y = height/2 + (orbit/2) * sin(angle)
+
+    # Draw Moon orbiting Earth
+    if earth_x is not None and earth_y is not None:
+        moon_colour, moon_orbit, moon_size, moon_speed = planets[-1]  # Last in list is Moon
+        moon_angle = radians((frame_count * moon_speed) % 360)
+        moon_x = earth_x + moon_orbit * cos(moon_angle)
+        moon_y = earth_y + moon_orbit * sin(moon_angle)
+        fill(*moon_colour)
+        ellipse(moon_x, moon_y, moon_size, moon_size)
 
 def setup():
     size(400, 400)
